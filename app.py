@@ -44,7 +44,7 @@ for klausimas in klausimai:
     print()
     print(klausimas.tekstas)
     for atsakymas in klausimas.atsakymai:
-        print(klausimas.id, atsakymas.tekstas)
+        print(atsakymas.id, atsakymas.tekstas)
     pasirinkto_atsakymo_id = int(input("Pasirinkite atsakymą"))
     pasirinktas_atsakymas = session.query(Atsakymas).get(pasirinkto_atsakymo_id)
     vartotojo_ats1 = VartotojoAtsakymas()
