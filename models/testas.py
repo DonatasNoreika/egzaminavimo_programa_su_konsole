@@ -21,6 +21,7 @@ class Klausimas(Base):
     balas = Column("Balas", Integer)
     testas_id = Column(Integer, ForeignKey('testas.id'))
     testas = relationship("Testas")
+    atsakymai = relationship("Atsakymas")
 
     def __init__(self, tekstas, balas):
         self.tekstas = tekstas
