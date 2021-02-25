@@ -25,8 +25,6 @@ while True:
         break
 
 
-
-
 # while True:
 testai = session.query(Testas).all()
 for testas in testai:
@@ -41,17 +39,17 @@ sprendimas1.testas = pasirinktas_testas
 session.add(sprendimas1)
 session.commit()
 
-
-# sprendimas1.testas = testas1
-#
-# session.add(sprendimas1)
-# session.commit()
-
-
 klausimai = session.query(Klausimas).filter_by(testas=pasirinktas_testas).all()
 for klausimas in klausimai:
     print()
     print(klausimas.tekstas)
     for atsakymas in klausimas.atsakymai:
         print(klausimas.id, atsakymas.tekstas)
-    input()
+    pasirinkto_atsakymo_id = int(input("Pasirinkite atsakymą"))
+    pasirinktas_atsakymas = session.query(Atsakymas).get(pasirinkto_atsakymo_id)
+    vartotojo_ats1 = VartotojoAtsakymas()
+    vartotojo_ats1.sprendimas = sprendimas1
+    vartotojo_ats1.klausimas = klausimas
+    vartotojo_ats1.atsakymas = pasirinktas_atsakymas
+    session.add(vartotojo_ats1)
+    session.commit()
