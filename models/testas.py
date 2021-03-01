@@ -15,7 +15,7 @@ class Testas(Base):
         self.pavadinimas = pavadinimas
 
     def __repr__(self):
-        return f"Testas: {self.id} - {self.pavadinimas}"
+        return f"{self.id} - {self.pavadinimas}"
 
 class Klausimas(Base):
     __tablename__ = "klausimas"
@@ -53,7 +53,7 @@ class Vartotojas(Base):
         self.pavarde = pavarde
 
     def __repr__(self):
-        return f"Vartotojas: {self.id} - {self.vardas}, {self.pavarde}"
+        return f" {self.id} - {self.vardas}, {self.pavarde}"
 
 
 class Sprendimas(Base):
@@ -69,7 +69,7 @@ class Sprendimas(Base):
     # Reikia datos dar, rezultato
 
     def __repr__(self):
-        return f"{self.id} - {self.vartotojas}, {self.testas}"
+        return f"{self.id} - Vartotojas: {self.vartotojas}, Testas: {self.testas}"
 
 class VartotojoAtsakymas(Base):
     __tablename__ = "vartotojo_atsakymas"
