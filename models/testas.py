@@ -58,8 +58,9 @@ class Sprendimas(Base):
     vartotojas = relationship("Vartotojas")
     testas_id = Column(Integer, ForeignKey('testas.id'))
     testas = relationship("Testas")
+    # rezultatas = Column("Rezultatas", String)
 
-    # Reikia datos dar
+    # Reikia datos dar, rezultato
 
 class VartotojoAtsakymas(Base):
     __tablename__ = "vartotojo_atsakymas"

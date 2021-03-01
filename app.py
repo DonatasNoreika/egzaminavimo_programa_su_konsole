@@ -24,8 +24,6 @@ while True:
         aktyvus_vartotojas = session.query(Vartotojas).get(pasirinkto_vartotojo_id)
         break
 
-
-# while True:
 testai = session.query(Testas).all()
 for testas in testai:
     print(testas.id, testas.pavadinimas)
@@ -40,6 +38,9 @@ session.add(sprendimas1)
 session.commit()
 
 klausimai = session.query(Klausimas).filter_by(testas=pasirinktas_testas).all()
+
+klausimu_kiekis = 0
+taskai = 0
 for klausimas in klausimai:
     print()
     print(klausimas.tekstas)
@@ -51,5 +52,11 @@ for klausimas in klausimai:
     vartotojo_ats1.sprendimas = sprendimas1
     vartotojo_ats1.klausimas = klausimas
     vartotojo_ats1.atsakymas = pasirinktas_atsakymas
+    klausimu_kiekis += 1
+    if pasirinktas_atsakymas.ar_teisingas:
+        taskai += 1
     session.add(vartotojo_ats1)
     session.commit()
+rezultatas = f"{taskai}/{klausimu_kiekis}"
+sprendimas1.rezultatas = taskai
+print("Rezultatas:", rezultatas)
