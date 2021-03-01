@@ -14,6 +14,9 @@ class Testas(Base):
     def __init__(self, pavadinimas):
         self.pavadinimas = pavadinimas
 
+    def __repr__(self):
+        return f"Testas: {self.id} - {self.pavadinimas}"
+
 class Klausimas(Base):
     __tablename__ = "klausimas"
     id = Column(Integer, primary_key=True)
@@ -49,6 +52,9 @@ class Vartotojas(Base):
         self.vardas = vardas
         self.pavarde = pavarde
 
+    def __repr__(self):
+        return f"Vartotojas: {self.id} - {self.vardas}, {self.pavarde}"
+
 
 class Sprendimas(Base):
     __tablename__ = "sprendimas"
@@ -58,9 +64,12 @@ class Sprendimas(Base):
     vartotojas = relationship("Vartotojas")
     testas_id = Column(Integer, ForeignKey('testas.id'))
     testas = relationship("Testas")
-    # rezultatas = Column("Rezultatas", String)
+    # rezultatas = Column("Rezultatas", Integer)
 
     # Reikia datos dar, rezultato
+
+    def __repr__(self):
+        return f"{self.id} - {self.vartotojas}, {self.testas}"
 
 class VartotojoAtsakymas(Base):
     __tablename__ = "vartotojo_atsakymas"
