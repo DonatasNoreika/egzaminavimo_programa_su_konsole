@@ -6,10 +6,12 @@ from datetime import datetime
 engine = create_engine('sqlite:///egzaminavimo_programa.db')
 Base = declarative_base()
 
+
 class Testas(Base):
     __tablename__ = "testas"
     id = Column(Integer, primary_key=True)
     pavadinimas = Column("Pavadinimas", String)
+    klausimai = relationship("Klausimas")
 
     def __init__(self, pavadinimas):
         self.pavadinimas = pavadinimas
@@ -26,9 +28,11 @@ class Klausimas(Base):
     testas = relationship("Testas")
     atsakymai = relationship("Atsakymas")
 
-    def __init__(self, tekstas, balas):
+    def __init__(self, tekstas, balas, testas):
         self.tekstas = tekstas
         self.balas = balas
+        self.testas = testas
+
 
 class Atsakymas(Base):
     __tablename__ = "atsakymas"
@@ -59,23 +63,21 @@ class Vartotojas(Base):
 class Sprendimas(Base):
     __tablename__ = "sprendimas"
     id = Column(Integer, primary_key=True)
-    # data = Column("Data", DateTime, default=datetime.today())
+    data = Column("Data", DateTime, default=datetime.today())
     vartotojas_id = Column(Integer, ForeignKey('vartotojas.id'))
     vartotojas = relationship("Vartotojas")
     testas_id = Column(Integer, ForeignKey('testas.id'))
     testas = relationship("Testas")
-    # rezultatas = Column("Rezultatas", Integer)
-
-    # Reikia datos dar, rezultato
+    rezultatas = Column("Rezultatas", Integer)
 
     def __repr__(self):
-        return f"{self.id} - Vartotojas: {self.vartotojas}, Testas: {self.testas}"
+        return f"{self.id} - Vartotojas: {self.vartotojas}, Testas: {self.testas}, Rezultatas: {self.rezultatas}"
 
 class VartotojoAtsakymas(Base):
     __tablename__ = "vartotojo_atsakymas"
     id = Column(Integer, primary_key=True)
     sprendimas_id = Column(Integer, ForeignKey('sprendimas.id'))
-    sprendimas = relationship(Sprendimas)
+    sprendimas = relationship("Sprendimas")
     klausimas_id = Column(Integer, ForeignKey('klausimas.id'))
     klausimas = relationship("Klausimas")
     atsakymas_id = Column(Integer, ForeignKey('atsakymas.id'))
