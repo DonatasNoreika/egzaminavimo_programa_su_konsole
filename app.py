@@ -1,10 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from models.testas import *
-
-engine = create_engine('sqlite:///egzaminavimo_programa.db')
-Base = declarative_base()
+from models.testas import (engine,
+                           sessionmaker,
+                           Testas,
+                           Klausimas,
+                           Atsakymas,
+                           Vartotojas,
+                           Sprendimas,
+                           VartotojoAtsakymas)
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -18,7 +19,7 @@ while True:
         session.commit()
 
         while True:
-            print("Norėdami nutraukį klausimų įvedimą spauskite ENTER")
+            print("Norėdami nutraukti klausimų įvedimą spauskite ENTER")
             klausimo_tekstas = input("Įveskite klausimo tekstą")
             if klausimo_tekstas == "":
                 break
@@ -39,8 +40,6 @@ while True:
                 atsakymas = Atsakymas(atsakymo_tekstas, ar_teisingas)
                 klausimas.atsakymai.append(atsakymas)
                 session.commit()
-
-
 
     if pasirinkimas == 2:
         while True:
